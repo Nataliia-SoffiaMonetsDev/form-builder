@@ -1,1 +1,49 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+    color: #172933;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+body {
+    margin: 0;
+}
+
+button {
+    background: #EEF2F4;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    height: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+}
+
+a:hover {
+    color: #C2D6E1;
+}
+
+a[tabindex]:focus {
+    color: #C2D6E1;
+    outline: none;
+}
+
+.mat-card,
+.mat-toolbar,
+.mat-expansion-panel-header,
+.mat-toolbar h1,
+button,
+.mat-checkbox-label {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mat-toolbar h1 {
+    font-size: 36px;
+    line-height: 44px;
+}

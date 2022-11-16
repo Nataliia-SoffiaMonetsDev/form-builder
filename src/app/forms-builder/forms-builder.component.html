@@ -1,0 +1,73 @@
+<main class="d-flex col-11 justify-content-between m-auto mt-4">
+    <section class="col-4">
+        <mat-accordion>
+            <mat-expansion-panel hideToggle (click)="toggleFormPanel()">
+                <mat-expansion-panel-header class="d-flex justify-content-around">
+                    <mat-panel-title>
+                        Form Styles
+                    </mat-panel-title>
+                    <span>{{ !formPanelOpenState ? 'Open' : 'Close'}}</span>
+                </mat-expansion-panel-header>
+                <app-form-styles (onApply)="formStyles($event)"></app-form-styles>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle (click)="toggleFieldPanel()" class="border-top-0"
+                [(expanded)]="expandStatus">
+                <mat-expansion-panel-header class="d-flex justify-content-around">
+                    <mat-panel-title>
+                        Field Styles
+                    </mat-panel-title>
+                    <span>{{ !fieldPanelOpenState ? 'Open' : 'Close'}}</span>
+                </mat-expansion-panel-header>
+                <app-field-styles (onApply)="fieldStyles($event)" (onAddOption)="addSelectOptions($event)"
+                    (deleteItem)="delete($event)" [targetEl]="targetEl"></app-field-styles>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </section>
+    <section class="example-container col-4" (click)="currentTarget($event)">
+        <div cdkDropList #formList="cdkDropList" [cdkDropListData]="inpres"
+            class="example-list d-flex flex-column align-items-center" (cdkDropListDropped)="drop($event)" [ngStyle]="mappedFormStyles" id="formBuilder">
+            <mat-card id="formLabel">{{formLabel}}</mat-card>
+            <div class="forminputs col-12 p-3" *ngFor="let item of inpres" cdkDrag (click)="toggleExpandSection()" id="formInputs">
+                <div class="form-group col-12 m-auto" *ngIf="item == 'Input'">
+                    <label class="form-input-label" for="Input">{{ inputLabel != '' ? inputLabel : item + ' ' + 'label'}}</label>
+                    <input type="text" class="form-control" id="Input" [ngStyle]="mappedFieldStyles"
+                        [attr.required]="required || null" [placeholder]="placeHolder">
+                </div>
+                <div class="form-group col-12 d-flex flex-column m-auto" *ngIf="item == 'Textarea'">
+                    <label for="Textarea">{{ textareaLabel != '' ? textareaLabel : item + ' ' + 'label'}}</label>
+                    <textarea class="form-control" id="Textarea" rows="1" [attr.required]="required || null"></textarea>
+                </div>
+                <div class="form-check col-12 d-flex m-auto flex-column" *ngIf="item == 'Checkbox'">
+                    <label class="text-center">
+                        {{ checkboxLabel != '' ? checkboxLabel : item + ' ' + 'label'}}
+                    </label>
+                    <div>
+                        <input class="form-check-input" style="margin-right: 5px" type="checkbox" id="Check"
+                            [attr.required]="required || null">
+                        <span>option 1</span>
+                    </div>
+                </div>
+                <button type="button" *ngIf="item == 'Button'"
+                    class="col-6 d-flex m-auto align-items-center justify-content-center" id="Button">{{ buttonLabel != '' ? buttonLabel : item + ' ' + 'label'}}</button>
+                <div *ngIf="item == 'Select'">
+                    <label>
+                        {{ selectLabel != '' ? selectLabel : item + ' ' + 'label'}}
+                    </label>
+                    <select class="form-control col-10 d-flex m-auto" [attr.required]="required || null" id="Select">
+                        <option *ngFor="let item of selectOptions">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button class="col-6 d-flex align-items-center justify-content-center m-auto mt-4" (click)="saveForm()">Save
+            Form</button>
+    </section>
+
+    <section class="example-container col-3">
+        <div cdkDropList #inputList="cdkDropList" [cdkDropListData]="InputList" [cdkDropListConnectedTo]="[formList]"
+            class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box d-flex p-3 align-items-center justify-content-between"
+                *ngFor="let item of InputList" cdkDrag>{{item}}</div>
+        </div>
+    </section>
+</main>

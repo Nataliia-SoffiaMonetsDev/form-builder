@@ -1,0 +1,9 @@
+<mat-toolbar class="d-flex justify-content-around">
+  <span *ngIf="showExitandName">Hi, {{name}}</span>
+  <h1>Form Builder</h1>
+  <div *ngIf="!showExitandName" class="col-lg-2 col-md-3 col-5 d-flex justify-content-between">
+    <a [routerLink]="['/register']"  routerLinkActive="active">Register</a>
+    <a [routerLink]="['/login']"  routerLinkActive="active">Log In</a>
+  </div>
+  <i class="material-icons text-muted" (click)="logOut()" *ngIf="showExitandName">exit_to_app</i>
+</mat-toolbar>
